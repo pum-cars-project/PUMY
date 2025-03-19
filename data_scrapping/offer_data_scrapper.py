@@ -67,10 +67,10 @@ def append_link_to_problematic_links_file(line):
 def save_to_file(content):
     global EXTRACTED_DATA_DIRECTORY_NAME
     file_name = content["id"]
-    path_to_file = f'{EXTRACTED_DATA_DIRECTORY_NAME}/{file_name}'
+    path_to_file = f'{EXTRACTED_DATA_DIRECTORY_NAME}/{file_name}.json'
     with open(path_to_file, 'w') as file:
         file.write(json.dumps(content))
-    log_success(f'Zapisano {content["make"].upper()} o id: {file_name}')
+    log_success(f'Zapisano {content["make"].upper()} o id: {file_name}.json')
 
 
 def get_raw_offer_data(url):
