@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from xgboost import XGBRegressor
 import joblib
 
-df = pd.read_parquet('data_refactoring/cars_data/bmw/bmw_encoded.parquet')
+df = pd.read_parquet('../data_refactoring/cars_data/bmw/bmw_encoded.parquet')
 
 y = df['price_amount']
 X = df.drop(columns=['price_amount'])
