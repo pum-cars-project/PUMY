@@ -84,6 +84,7 @@ def scrape_all_offers(base_url):
             # Format URL dla pierwszej strony i kolejnych
             if page == 1:
                 url = base_url
+                
             else:
                 url = f"{base_url}?page={page}"
 
