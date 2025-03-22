@@ -1,0 +1,15 @@
+selenium>=4.29
+pandas>=2.2
+scikit-learn>=1.6.0
+xgboost>=3.0.0
+joblib>=1.4.2
+pyarrow>=19.0
+fastparquet>=2024.11.0
+fastapi>=0.115.11
+psycopg2>=2.9.10
+pydantic~=2.10.6
+httpx~=0.28.1
+beautifulsoup4~=4.13.3
+lxml~=5.3.1
+orjson~=3.10.15
+uvicorn~=0.15.0

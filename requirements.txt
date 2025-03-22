@@ -1,8 +1,0 @@
-selenium>=4.29
-pandas>=2.2
-scikit-learn>=1.6.0
-xgboost>=3.0.0
-joblib>=1.4.2
-pyarrow>=19.0
-fastparquet>=2024.11.0
-category-encoders>=2.8

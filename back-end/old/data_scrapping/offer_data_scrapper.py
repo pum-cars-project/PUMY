@@ -7,8 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from data_scrapping.data_extractor import extract
-from simple_logging import log_info, log_error, log_success
+from old.data_scrapping.data_extractor import extract
+from old.simple_logging import log_info, log_error, log_success
 
 PROBLEMATIC_LINKS_FILE_NAME = "../error_links.txt"
 EXTRACTED_DATA_DIRECTORY_NAME = "extracted_data"
