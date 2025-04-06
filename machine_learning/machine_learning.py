@@ -1,12 +1,13 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import mean_absolute_error
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.linear_model import LinearRegression
 from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
 import joblib
 
-df = pd.read_parquet('data_refactoring/cars_data/bmw/bmw_encoded.parquet')
+df = pd.read_csv('C:\\Users\\szymo\\Desktop\\PythonProjects\\PUM_semester_project\\data_refactoring\\cars_data\\bmw\\extracted_bmw_data\\bmw_encoded.csv')
 
 y = df['price_amount']
 X = df.drop(columns=['price_amount'])
@@ -17,14 +18,12 @@ def model_handler(X, y, random_state=1):
     models = [
         {
             'name': 'RandomForestRegressor',
-            'model': LinearRegression(random_state=random_state),
+            'model': RandomForestRegressor(random_state=random_state),
             'params': {
-                'normalize': [True, False],
                 'n_estimators': [100, 200, 300, 400, 500],
                 'max_depth': [None, 10, 20, 30, 40, 50],
                 'min_samples_split': [2, 5, 10]
             }
-
         },
         {
             'name': 'GradientBoostingRegressor',
@@ -46,7 +45,7 @@ def model_handler(X, y, random_state=1):
         },
         {
             'name': 'LGBMRegressor',
-            'model': LGBMRegressor(random_state=42),
+            'model': LGBMRegressor(random_state=random_state),
             'params': {
                 'n_estimators': [100, 200],
                 'learning_rate': [0.01, 0.1],
@@ -74,16 +73,16 @@ def model_handler(X, y, random_state=1):
         y_pred = grid_search.predict(X_test)
         mae = mean_absolute_error(y_test, y_pred)
 
-        print(f"MAE dla {model_config['name']}: {mae}")
-        print(f"Najlepsze parametry: {grid_search.best_params_}")
+        print(f"MAE for {model_config['name']}: {mae}")
+        print(f"Best parameters: {grid_search.best_params_}")
 
         if mae < best_mae:
             best_mae = mae
             best_model = grid_search
             best_model_name = model_config['name']
 
-    print(f"Najlepszy model: {best_model_name}")
-    print(f"Najniższy MAE: {best_mae}")
+    print(f"Best model: {best_model_name}")
+    print(f"Lowest MAE: {best_mae}")
     return best_model
 
 best_model = model_handler(X, y)

@@ -4,21 +4,21 @@ import category_encoders as ce
 import os
 
 make = 'bmw'
-folder_path = f"data_refactoring/cars_data/{make}"
+folder_path = f"data_refactoring/cars_data/{make}/extracted_{make}_data"
 all_data = []
 
 for filename in os.listdir(folder_path):
-    if filename.endswith('.json'):
-        file_path = os.path.join(folder_path, filename)
+
+    file_path = os.path.join(folder_path, filename)
         
-        with open(file_path, 'r', encoding='utf-8') as file:
-            content = file.read()
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
             
-            try:
-                data = json.loads(content)
-                all_data.append(data)
-            except json.JSONDecodeError as e:
-                print(f"Nie udało się wczytać pliku {filename}: {e}")
+    try:
+        data = json.loads(content)
+        all_data.append(data)
+    except json.JSONDecodeError as e:
+        print(f"Nie udało się wczytać pliku {filename}: {e}")
 
 df = pd.DataFrame(all_data)
 
@@ -49,10 +49,10 @@ if 'price_currency' in df.columns and 'price_amount' in df.columns:
 
 rest_cat_cols = [col for col in df.columns if df[col].dtype == 'object']
 
-if rest_cat_cols:
-    encoder = ce.BinaryEncoder(cols=rest_cat_cols)
-    df_encoded = encoder.fit_transform(df)
-else:
-    df_encoded = df
+#if rest_cat_cols:
+    #encoder = ce.BinaryEncoder(cols=rest_cat_cols)
+    #df_encoded = encoder.fit_transform(df)
+#else:
+df_encoded = df
 
-df_encoded.to_parquet(f"data_refactoring/cars_data/{make}/{make}_encoded.parquet", index=False)
+df_encoded.to_csv(f"{folder_path}/{make}_without_encoded.csv", index=False)
